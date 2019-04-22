@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 
 public class Calc extends JFrame {
 	private static double n1=0 ,n2=0;
+	private static int workdone=0;
 	private static Double res=null;
 	static StringBuilder sb = new StringBuilder();
 	static String s1="",s2="";
@@ -76,83 +77,115 @@ public class Calc extends JFrame {
 			n2=0;
 			res=0.0;
 			temp='e';
+			sb.delete(0, count+1);
 		}
 		else if(tx=="c")
 		{
 			output.setText("");
+			n1=0;
+			n2=0;
+			res=0.0;
+			temp='e';
+			sb.delete(0, count+1);
+		}
+		else if(tx=="del")
+		{
+			
+			String r = output.getText();
+			char[] clist = new char[r.length()];
+			output.setText("");
+			for(int i=0;i<r.length()-1;i++)
+			{
+				clist[i] = r.charAt(i);
+				output.setText(output.getText()+clist[i]);
+			}
+			sb.deleteCharAt(count-1);
+			count--;
+		 }
+		else if(tx=="ntr")
+		{
+			n1=0;
+			n2=0;
+			res=0.0;
+			temp='e';
+			sb.delete(0, count+1);
 		}
 	}
-	
+	private static void work()
+	{
+		workdone=1;
+		n1=res;
+	}
 	public static void operator(char c)
 	{
 		
 		 if(c=='+')
 		    {
-			 s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-			 temp=c;
-		      //  res= Double.valueOf(n1+n2);
-
-	            output.setText(output.getText()+'+');
+			 	 valueChanger(c);
 		    }
 		    else if(c=='-')
 		    {
-		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	
-		   	 temp=c;
-		    //    res= Double.valueOf(n1-n2);
-
-	            output.setText(output.getText()+'-');
+		    	 valueChanger(c);
 		    }
 		    else if(c=='*')
 		    {
-		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	 temp=c;
-		     //   res= Double.valueOf(n1*n2);
-
-	            output.setText(output.getText()+'x');
+		    	 valueChanger(c);
 		    }
 		    else  if(c=='/')
 		   {
-		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	 temp=c;
-		     //   res= Double.valueOf(n1/n2);
-
-	            output.setText(output.getText()+'/');
+		    	 valueChanger(c);
 		    }
 		    else if(c=='%')
 		    {
 		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	 temp=c;
+				if(res!=null)
+				    {
+				    }
+				 else 
+				    {
+					n1 = Double.parseDouble(s1);
+				 }
+					sb.delete(0, count+1);
+				 temp=c;
+		    	
 		    	res = Double.valueOf(n1/100);
-		    	output.setText(String.valueOf(res));
+		    	wholenum();
+		    	//clr("ntr");
 		    }
 		    else if(c=='s')
 		    {
 		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	 temp=c;
+				if(res!=null)
+				    {
+				    }
+				 else 
+				    {
+					n1 = Double.parseDouble(s1);
+				 }
+					sb.delete(0, count+1);
+				 temp=c;
+		    	
 		    res = Math.sqrt(n1);
-		    output.setText(String.valueOf(res));
+		    wholenum();
+		   // clr("ntr");
 		    }
 		    else if(c=='p')
 		    {
 		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
-		    	 temp=c;
+				if(res!=null)
+				    {
+				    }
+				 else 
+				    {
+					n1 = Double.parseDouble(s1);
+				 }
+					sb.delete(0, count+1);
+				 temp=c;
+		    	
 		    res =Math.pow(n1, 2);
-		    output.setText(String.valueOf(res));
+		    wholenum();
+		    	//    clr("ntr");
+		    n1=res;
 		    }
 		    else if(c=='.')
 		    {		    	
@@ -162,12 +195,36 @@ public class Calc extends JFrame {
 		    else if(c=='x')
 		    {
 		    	s1=sb.toString();
-		    	n1 = Double.parseDouble(s1);
-		    	sb.delete(0, count+1);
+				if(res!=null)
+				    {}
+				 else 
+				    {
+					n1 = Double.parseDouble(s1);
+				 }
+					sb.delete(0, count+1);
+				 temp=c;
+		    	
 		    	res = Double.valueOf(1/n1);
-		    	output.setText(String.valueOf(res));
+		    	wholenum();
+		    //	clr("ntr");
 		    }
-		    else if(c=='=')
+	}
+	private static void valueChanger(char c) {
+		s1=sb.toString();
+		if(res!=null)
+		    {
+		    }
+		 else 
+		    {
+			n1 = Double.parseDouble(s1);
+		 }
+			sb.delete(0, count+1);
+		 temp=c;
+		    output.setText(output.getText()+c);
+	}
+	public static void equal()
+	
+	{
 		    {
 		    	s2= sb.toString();
 		    	n2 = Double.parseDouble(s2);
@@ -188,15 +245,25 @@ public class Calc extends JFrame {
 			   {
 			      res= Double.valueOf(n1/n2);
 			    }
-		    	
-		    	 output.setText(String.valueOf(res)); 
-		    	//output.setText(s1);
-		    	//output.setText(s2);
+		    	wholenum();
 		    }
+	}
+	
+	private static void wholenum()
+	{
+		if(Math.floor(res)==res) 
+		{
+			 output.setText(String.valueOf(Math.round(res))); 
+			}
+			else
+			{
+				 output.setText(String.valueOf(res)); 
+			}
+		work();
 	}
 	public void insertNumber(int i)
     {
-        if(temp=='e')
+        if(temp=='e'&&workdone==0)
         {
         	
         	sb.append(i);
@@ -208,6 +275,23 @@ public class Calc extends JFrame {
         	
         	sb.append(i);
             output.setText(output.getText()+Math.round(i));
+            
+        }
+    }
+	public void insertNumber(String i)
+    {
+        if(temp=='e'&&workdone==0)
+        {
+        	
+        	sb.append(i);
+        	count++;
+            output.setText(output.getText()+i);
+        }
+        else
+        {
+        	
+        	sb.append(i);
+            output.setText(output.getText()+i);
             
         }
     }
@@ -250,9 +334,10 @@ public class Calc extends JFrame {
 		equalsTobtn = new JButton("=");
 		equalsTobtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				operator('=');
+				equal();
 			}
-		});
+		}
+		);
 		equalsTobtn.setBounds(286, 393, 80, 50);
 		contentPane.add(equalsTobtn);
 		
@@ -375,6 +460,11 @@ public class Calc extends JFrame {
 		contentPane.add(dividebtn);
 		
 		Del = new JButton("Del");
+		Del.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clr("del");
+			}
+		});
 		Del.setBounds(194, 143, 80, 50);
 		contentPane.add(Del);
 		
@@ -435,7 +525,7 @@ public class Calc extends JFrame {
 		num00 = new JButton("00");
 		num00.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				insertNumber(00);
+				insertNumber("00");
 			}
 		});
 		num00.setBounds(12, 393, 80, 50);
