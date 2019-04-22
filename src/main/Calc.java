@@ -21,7 +21,9 @@ import javax.swing.JTextArea;
 public class Calc extends JFrame {
 	private static double n1=0 ,n2=0;
 	private static Double res=null;
+	static StringBuilder sb = new StringBuilder();
 	static String s1="",s2="";
+	static int count=0;
 	static char temp='e';
 	private JPanel contentPane;
 	private static JTextField output;
@@ -83,8 +85,12 @@ public class Calc extends JFrame {
 	
 	public static void operator(char c)
 	{
+		
 		 if(c=='+')
 		    {
+			 s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 			 temp=c;
 		      //  res= Double.valueOf(n1+n2);
 
@@ -92,6 +98,9 @@ public class Calc extends JFrame {
 		    }
 		    else if(c=='-')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	
 		   	 temp=c;
 		    //    res= Double.valueOf(n1-n2);
@@ -100,6 +109,9 @@ public class Calc extends JFrame {
 		    }
 		    else if(c=='*')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	 temp=c;
 		     //   res= Double.valueOf(n1*n2);
 
@@ -107,6 +119,9 @@ public class Calc extends JFrame {
 		    }
 		    else  if(c=='/')
 		   {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	 temp=c;
 		     //   res= Double.valueOf(n1/n2);
 
@@ -114,42 +129,47 @@ public class Calc extends JFrame {
 		    }
 		    else if(c=='%')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	 temp=c;
 		    	res = Double.valueOf(n1/100);
 		    	output.setText(String.valueOf(res));
 		    }
 		    else if(c=='s')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	 temp=c;
 		    res = Math.sqrt(n1);
 		    output.setText(String.valueOf(res));
 		    }
 		    else if(c=='p')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	 temp=c;
 		    res =Math.pow(n1, 2);
 		    output.setText(String.valueOf(res));
 		    }
 		    else if(c=='.')
-		    {/*
-		    	if(n2==null)
-		    	{
-		    		n1 = n1+.0;
-		    	}
-		    	else
-		    	{
-		    		n2=n2+.0;
-		    	}
-		    	*/
+		    {		    	
+		    		sb.append(".");
+		    		output.setText(output.getText()+".");
 		    }
 		    else if(c=='x')
 		    {
+		    	s1=sb.toString();
+		    	n1 = Double.parseDouble(s1);
+		    	sb.delete(0, count+1);
 		    	res = Double.valueOf(1/n1);
 		    	output.setText(String.valueOf(res));
 		    }
 		    else if(c=='=')
 		    {
-		    	n1 = Double.parseDouble(s1);
+		    	s2= sb.toString();
 		    	n2 = Double.parseDouble(s2);
 		    	
 		    	if(temp=='+')
@@ -170,7 +190,8 @@ public class Calc extends JFrame {
 			    }
 		    	
 		    	 output.setText(String.valueOf(res)); 
-		    	 //output.setText(s1);
+		    	//output.setText(s1);
+		    	//output.setText(s2);
 		    }
 	}
 	public void insertNumber(int i)
@@ -178,17 +199,14 @@ public class Calc extends JFrame {
         if(temp=='e')
         {
         	
-        	s1=s1+Double.toString(i);
-        	//n1=Double.parseDouble(s);
-           // n1= n1+i;
+        	sb.append(i);
+        	count++;
             output.setText(output.getText()+Math.round(i));
         }
         else
         {
-
-        	s2= s2+Double.toString(i);
-           //n2=Double.parseDouble(s);
-           //n2=n2+i;
+        	
+        	sb.append(i);
             output.setText(output.getText()+Math.round(i));
             
         }
