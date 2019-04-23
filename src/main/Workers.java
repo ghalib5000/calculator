@@ -13,23 +13,20 @@ public class Workers {
 	 public void clr(String tx)
 
 		{
-			if(tx=="ce")
+			if(tx=="ce"||tx=="c")
 			{
 			Calc.getOutput().setText("");
+			String r ="";
+			    s1="";
+			    s2="";
 				n1=0;
 				n2=0;
-				res=0.0;
+ 				res=null;
 				temp='e';
-				sb.delete(0, count+1);
-			}
-			else if(tx=="c")
-			{
-				Calc.getOutput().setText("");
-				n1=0;
-				n2=0;
-				res=0.0;
-				temp='e';
-				sb.delete(0, count+1);
+				sb.delete(0, count);
+				workdone=0;
+				r="a";
+				count=0;
 			}
 			else if(tx=="del")
 			{
@@ -97,19 +94,22 @@ public class Workers {
 			
 			 if(c=='+')
 			    {
-				 	 valueChanger(c);
+				 if(temp!=c) {
+				 valueChanger(c);
+				 }
 			    }
 			    else if(c=='-')
-			    {
+			    {if(temp!=c) {
 			    	 valueChanger(c);
+			    }
 			    }
 			    else if(c=='*')
-			    {
-			    	 valueChanger(c);
+			    {if(temp!=c) {
+			    	 valueChanger(c);}
 			    }
 			    else  if(c=='/')
-			   {
-			    	 valueChanger(c);
+			   {if(temp!=c) {
+			    	 valueChanger(c);}
 			    }
 			    else if(c=='%')
 			    {
@@ -126,7 +126,6 @@ public class Workers {
 			    	
 			    	res = Double.valueOf(n1/100);
 			    	wholenum();
-			    	//clr("ntr");
 			    }
 			    else if(c=='s')
 			    {
@@ -143,7 +142,6 @@ public class Workers {
 			    	
 			    res = Math.sqrt(n1);
 			    wholenum();
-			   // clr("ntr");
 			    }
 			    else if(c=='p')
 			    {
@@ -160,11 +158,11 @@ public class Workers {
 			    	
 			    res =Math.pow(n1, 2);
 			    wholenum();
-			    	//    clr("ntr");
 			    n1=res;
 			    }
 			    else if(c=='.')
-			    {		    	
+			    {		
+			    	
 			    		sb.append(".");
 			    		Calc.getOutput().setText(Calc.getOutput().getText()+".");
 			    }
@@ -182,7 +180,6 @@ public class Workers {
 			    	
 			    	res = Double.valueOf(1/n1);
 			    	wholenum();
-			    //	clr("ntr");
 			    }
 		}
 		public  void valueChanger(char c) {
@@ -222,6 +219,7 @@ public class Workers {
 				    }
 			    	wholenum();
 			    }
+			    temp='e';
 		}
 		public void wholenum()
 		{
