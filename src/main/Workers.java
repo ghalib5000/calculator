@@ -3,6 +3,7 @@ public class Workers {
 
 	private static double n1=0 ,n2=0;
 	private static int workdone=0;
+	String r ="";
 	private static Double res=null;
 	static StringBuilder sb = new StringBuilder();
 	static String s1="",s2="";
@@ -32,32 +33,48 @@ public class Workers {
 			}
 			else if(tx=="del")
 			{
+				if(r=="")
+				{
+					
+				}
+				else
+				{
 				if(temp!='e')
 				{
 					res=0.0;
 					temp='e';
-					String r = Calc.getOutput().getText();
-					char[] clist = new char[r.length()];
+					 r = Calc.getOutput().getText();
+					char[] clist = new char[r.length()-1];
 					Calc.getOutput().setText("");
-					for(int i=0;i<r.length()-1;i++)
+					for(int i=0;i<clist.length;i++)
 					{
 						clist[i] = r.charAt(i);
 						Calc.getOutput().setText(Calc.getOutput().getText()+clist[i]);
 					}
+					r="";
+					for(int i=0;i<clist.length;i++)
+					{
+						r+= clist[i];
+					}
 				}
 				else
 				{
-				
-				String r = Calc.getOutput().getText();
-				char[] clist = new char[r.length()];
-				Calc.getOutput().setText("");
-				for(int i=0;i<r.length()-1;i++)
+				 r = Calc.getOutput().getText();
+					char[] clist = new char[r.length()-1];
+					Calc.getOutput().setText("");
+					for(int i=0;i<clist.length;i++)
 				{
 					clist[i] = r.charAt(i);
-					Calc.getOutput().setText(Calc.getOutput().getText()+clist[i]);
+					Calc.getOutput().setText( Calc.getOutput().getText()+ clist[i] );
 				}
-				sb.deleteCharAt(count-1);
+					r="";
+					for(int i=0;i<clist.length;i++)
+					{
+						r+= clist[i];
+					}
+				sb.deleteCharAt(count-1);	
 				count--;
+				}
 				}
 			 }
 			else if(tx=="ntr")
@@ -220,6 +237,7 @@ public class Workers {
 		}
 		public void insertNumber(int i)
 	    {
+			r="a";
 	        if(temp=='e'&&workdone==0)
 	        {
 	        	

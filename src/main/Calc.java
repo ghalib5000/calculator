@@ -1,22 +1,17 @@
 package main;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class Calc extends JFrame {
 	Workers wk = new Workers();
@@ -68,19 +63,24 @@ public class Calc extends JFrame {
 	 * Create the frame.
 	 */
 	public Calc() {
+		setTitle("Ghalib Calculator");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 507);
+		setBounds(100, 100, 385, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		setOutput(new JTextField());
-		getOutput().setFont(new Font("Tahoma", Font.PLAIN, 20));
-		getOutput().setHorizontalAlignment(SwingConstants.RIGHT);
-		getOutput().setBounds(12, 13, 354, 40);
-		contentPane.add(getOutput());
-		getOutput().setColumns(10);
+		//setOutput(new JTextField());
+		output = new JTextField();
+		output.setBackground(Color.WHITE);
+		output.setEditable(false);
+		output.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		output.setHorizontalAlignment(SwingConstants.RIGHT);
+		output.setBounds(12, 13, 354, 40);
+		contentPane.add(output);
+		output.setColumns(10);
 		
 		num0 = new JButton("0");
 		num0.addActionListener(new ActionListener() {
@@ -299,9 +299,11 @@ public class Calc extends JFrame {
 		});
 		num00.setBounds(12, 393, 80, 50);
 		contentPane.add(num00);
+	
 	}
 
 	public static JTextField getOutput() {
+		
 		return output;
 	}
 
