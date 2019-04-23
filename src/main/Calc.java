@@ -63,6 +63,7 @@ public class Calc extends JFrame {
 					Calc frame = new Calc();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					
 					e.printStackTrace();
 				}
 			}
@@ -90,6 +91,21 @@ public class Calc extends JFrame {
 		}
 		else if(tx=="del")
 		{
+			if(temp!='e')
+			{
+				res=0.0;
+				temp='e';
+				String r = output.getText();
+				char[] clist = new char[r.length()];
+				output.setText("");
+				for(int i=0;i<r.length()-1;i++)
+				{
+					clist[i] = r.charAt(i);
+					output.setText(output.getText()+clist[i]);
+				}
+			}
+			else
+			{
 			
 			String r = output.getText();
 			char[] clist = new char[r.length()];
@@ -101,6 +117,7 @@ public class Calc extends JFrame {
 			}
 			sb.deleteCharAt(count-1);
 			count--;
+			}
 		 }
 		else if(tx=="ntr")
 		{
